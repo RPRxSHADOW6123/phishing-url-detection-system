@@ -6,8 +6,6 @@ __pycache__/
 # Large dataset
 dataset/*.csv
 
-# Trained model
-model/*.pkl
 
 # VS Code
 .vscode/
