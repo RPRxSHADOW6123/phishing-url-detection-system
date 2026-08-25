@@ -14,11 +14,6 @@ from sklearn.metrics import (
 
 from feature_extraction import extract_features
 
-
-# -----------------------------
-# 1. Load Dataset
-# -----------------------------
-
 file_path = "dataset/phishing_dataset.csv"
 
 df = pd.read_csv(file_path)
@@ -26,44 +21,25 @@ df = pd.read_csv(file_path)
 print("Dataset loaded successfully!")
 print("Total rows:", len(df))
 
-
-# -----------------------------
-# 2. Select Required Columns
-# -----------------------------
-
 df = df[["URL", "label"]]
 
-# Remove missing values
 df = df.dropna()
 
-# Convert labels to numerical values
 df["label"] = df["label"].map({
     "benign": 0,
     "phishing": 1
 })
 
-# Remove rows with unknown labels
 df = df.dropna(subset=["label"])
 
 df["label"] = df["label"].astype(int)
 
-
-# -----------------------------
-# 3. Use a Manageable Dataset
-# -----------------------------
-
-# Use 60,000 samples for faster training
 df = df.sample(
     n=min(60000, len(df)),
     random_state=42
 )
 
 print("Samples used for training:", len(df))
-
-
-# -----------------------------
-# 4. Extract URL Features
-# -----------------------------
 
 print("\nExtracting URL features...")
 
@@ -80,11 +56,6 @@ print(X.head())
 print("\nFeature columns:")
 print(X.columns.tolist())
 
-
-# -----------------------------
-# 5. Train-Test Split
-# -----------------------------
-
 X_train, X_test, y_train, y_test = train_test_split(
     X,
     y,
@@ -96,11 +67,6 @@ X_train, X_test, y_train, y_test = train_test_split(
 print("\nTraining samples:", len(X_train))
 print("Testing samples:", len(X_test))
 
-
-# -----------------------------
-# 6. Create Gradient Boosting Model
-# -----------------------------
-
 print("\nTraining Gradient Boosting Classifier...")
 
 model = GradientBoostingClassifier(
@@ -110,26 +76,11 @@ model = GradientBoostingClassifier(
     random_state=42
 )
 
-
-# -----------------------------
-# 7. Train Model
-# -----------------------------
-
 model.fit(X_train, y_train)
 
 print("Model training completed!")
 
-
-# -----------------------------
-# 8. Make Predictions
-# -----------------------------
-
 y_pred = model.predict(X_test)
-
-
-# -----------------------------
-# 9. Evaluate Model
-# -----------------------------
 
 accuracy = accuracy_score(y_test, y_pred)
 precision = precision_score(y_test, y_pred)
@@ -152,11 +103,6 @@ print(classification_report(
 
 print("\nConfusion Matrix:")
 print(confusion_matrix(y_test, y_pred))
-
-
-# -----------------------------
-# 10. Save Model
-# -----------------------------
 
 model_path = "model/phishing_model.pkl"
 

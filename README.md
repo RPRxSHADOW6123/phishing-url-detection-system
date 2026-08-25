@@ -43,9 +43,28 @@ The model was trained using a sample of 60,000 URLs.
 - Recall: 94.63%
 - F1 Score: 96.43%
 
-## How to Run
+## How to Run for git clone
+Install Git-
+git --version
 
-Install dependencies:
+Clone the Repository-
+git clone https://github.com/YOUR_USERNAME/phishing-url-detection-system.git
 
-```bash
-pip install -r requirements.txt
+create environment-
+python -m venv venv
+
+# activate environment
+cmd-
+venv\Scripts\activate
+
+powershell-
+venv\Scripts\Activate.ps1
+
+Install Dependencies :
+python -m pip install --upgrade pip
+
+Then:
+python -m pip install -r requirements.txt
+
+Run the Application-
+python -m streamlit run app.py
